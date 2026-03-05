@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footing — Parental Rights Across Europe</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Epilogue:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #F5F0E8;
+    --sand-dark: #E8E0D0;
+    --forest: #2D6A4F;
+    --forest-light: #40916C;
+    --forest-bg: #E8F5E9;
+    --slate: #64748B;
+    --slate-light: #94A3B8;
+    --amber: #D97706;
+    --amber-bg: #FEF3C7;
+    --red: #DC2626;
+    --white: #FFFFFF;
+    --text: #1E293B;
+    --text-light: #475569;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Epilogue', sans-serif;
+    background: var(--sand);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* WELCOME SCREEN */
+  #welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
+  }
+  #welcome h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  #welcome .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  #welcome .flag {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  /* COUNTRY SELECTOR */
+  #country-selector {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
+  }
+  #country-selector h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  #country-selector .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .country-cards {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 700px;
+  }
+  .country-card {
+    background: var(--white);
+    border: 2px solid var(--sand-dark);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    width: 280px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  .country-card:hover {
+    border-color: var(--forest);
+    box-shadow: 0 8px 24px rgba(45, 106, 79, 0.12);
+    transform: translateY(-4px);
+  }
+  .country-card .flag {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+  }
+  .country-card .name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .country-card .desc {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  .start-btn {
+    background: var(--forest);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 60px;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .start-btn:hover { background: var(--forest-light); transform: translateY(-1px); }
+
+  /* QUESTIONNAIRE */
+  #questionnaire {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .question-container {
+    text-align: center;
+    max-width: 560px;
+    width: 100%;
+  }
+  .question-label {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .question-hint {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .option-btn {
+    background: var(--white);
+    border: 2px solid var(--sand-dark);
+    padding: 1.1rem 1.5rem;
+    border-radius: 14px;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+  .option-btn:hover { border-color: var(--forest); background: var(--forest-bg); }
+  .option-btn .option-title { font-weight: 600; display: block; }
+  .option-btn .option-desc { font-size: 0.85rem; color: var(--text-light); margin-top: 0.25rem; display: block; }
+  .progress-dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--sand-dark);
+    transition: background 0.3s;
+  }
+  .dot.active { background: var(--forest); }
+  .dot.done { background: var(--forest-light); }
+
+  /* GRAPH VIEW */
+  #graph-view {
+    display: none;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  .graph-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .graph-header .country-flag {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .graph-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--forest);
+  }
+  .graph-header .profile-summary {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 0.4rem;
+  }
+  .graph-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+  .graph-canvas {
+    flex: 1;
+    position: relative;
+    min-height: 600px;
+  }
+  .graph-canvas svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NODES */
+  .node {
+    position: absolute;
+    background: var(--white);
+    border: 2px solid var(--sand-dark);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    width: 200px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .node.visible { opacity: 1; transform: translateY(0); }
+  .node.active { border-color: var(--forest); box-shadow: 0 4px 20px rgba(45,106,79,0.15); }
+  .node.inactive { opacity: 0.45; }
+  .node.warning { border-color: var(--amber); }
+  .node:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+  .node.inactive:hover { opacity: 0.65; }
+  .node-icon { font-size: 1.3rem; margin-bottom: 0.4rem; }
+  .node-title { font-weight: 600; font-size: 0.9rem; line-height: 1.3; }
+  .node-summary { font-size: 0.78rem; color: var(--text-light); margin-top: 0.3rem; line-height: 1.4; }
+  .node-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    margin-top: 0.5rem;
+  }
+  .tag-eligible { background: var(--forest-bg); color: var(--forest); }
+  .tag-warning { background: var(--amber-bg); color: var(--amber); }
+  .tag-unavailable { background: #F1F5F9; color: var(--slate); }
+
+  /* DETAIL PANEL */
+  .detail-panel {
+    width: 360px;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 2rem;
+    display: none;
+  }
+  .detail-panel.open { display: block; }
+  .detail-panel h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  .detail-panel .detail-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+  .detail-panel .detail-body { font-size: 0.9rem; line-height: 1.7; color: var(--text-light); }
+  .detail-panel .detail-body strong { color: var(--text); }
+  .detail-panel .detail-body p { margin-bottom: 0.8rem; }
+  .detail-panel .detail-section {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--sand-dark);
+  }
+  .detail-panel .detail-section h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--slate);
+    margin-bottom: 0.5rem;
+  }
+  .timeline-item {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+  }
+  .timeline-when {
+    font-weight: 600;
+    color: var(--forest);
+    white-space: nowrap;
+    min-width: 90px;
+  }
+  .timeline-what { color: var(--text-light); }
+  .detail-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none; border: none;
+    font-size: 1.2rem; cursor: pointer;
+    color: var(--slate-light);
+  }
+
+  /* SUMMARY ROW */
+  .summary-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 2rem auto 0;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .summary-item { text-align: center; }
+  .summary-item .summary-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--forest);
+  }
+  .summary-item .summary-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.15rem;
+  }
+
+  /* FLOATING DRAWER TRIGGER */
+  .drawer-trigger {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--forest);
+    color: var(--white);
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 60px;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(45,106,79,0.3);
+    z-index: 100;
+    display: none;
+    transition: all 0.3s ease;
+  }
+  .drawer-trigger:hover { background: var(--forest-light); transform: translateY(-2px); }
+  .drawer-trigger .badge {
+    background: var(--amber);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.1rem 0.45rem;
+    border-radius: 20px;
+    margin-left: 0.5rem;
+  }
+
+  /* DOCUMENT DRAWER */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 200;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .drawer-overlay.open { display: block; opacity: 1; }
+  .drawer {
+    position: fixed;
+    top: 0; right: -420px;
+    width: 400px;
+    height: 100vh;
+    background: var(--white);
+    z-index: 201;
+    padding: 2rem;
+    overflow-y: auto;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 30px rgba(0,0,0,0.1);
+  }
+  .drawer.open { right: 0; }
+  .drawer h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 0.25rem;
+  }
+  .drawer .drawer-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+  .drawer-progress {
+    background: var(--sand);
+    border-radius: 20px;
+    height: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .drawer-progress-bar {
+    height: 100%;
+    background: var(--forest);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+  .drawer-progress-label {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+    text-align: right;
+  }
+  .doc-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--sand);
+  }
+  .doc-item input[type="checkbox"] {
+    margin-top: 0.2rem;
+    width: 18px; height: 18px;
+    accent-color: var(--forest);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .doc-item-content { flex: 1; }
+  .doc-item-title { font-weight: 600; font-size: 0.9rem; }
+  .doc-item-title.checked { text-decoration: line-through; color: var(--slate-light); }
+  .doc-item-desc { font-size: 0.8rem; color: var(--text-light); margin-top: 0.15rem; line-height: 1.4; }
+  .doc-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    margin-top: 0.3rem;
+  }
+  .doc-tag-required { background: #FEE2E2; color: var(--red); }
+  .doc-tag-conditional { background: var(--amber-bg); color: var(--amber); }
+  .doc-tag-action { background: var(--forest-bg); color: var(--forest); }
+  .drawer-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: none; border: none;
+    font-size: 1.3rem; cursor: pointer;
+    color: var(--slate-light);
+  }
+  .drawer-footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sand);
+    text-align: center;
+  }
+  .drawer-footer button {
+    background: var(--forest);
+    color: var(--white);
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 40px;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .drawer-footer button:hover { background: var(--forest-light); }
+
+  /* RESTART */
+  .restart-btn {
+    background: none;
+    border: 1px solid var(--sand-dark);
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    cursor: pointer;
+    margin-top: 1.5rem;
+  }
+  .restart-btn:hover { border-color: var(--slate); color: var(--text); }
+
+  /* SOURCES IN DETAIL PANEL */
+  .detail-sources {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--sand-dark);
+  }
+  .detail-sources h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--slate);
+    margin-bottom: 0.5rem;
+  }
+  .source-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .source-link .source-icon { flex-shrink: 0; font-size: 0.75rem; margin-top: 0.15rem; }
+  .source-link a {
+    color: var(--forest);
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .source-link a:hover { text-decoration: underline; }
+  .source-link .source-label { color: var(--text-light); }
+
+  /* SOURCES DRAWER TRIGGER */
+  .sources-trigger {
+    position: fixed;
+    bottom: 2rem;
+    right: 14.5rem;
+    background: var(--white);
+    color: var(--forest);
+    border: 2px solid var(--forest);
+    padding: 0.9rem 1.5rem;
+    border-radius: 60px;
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    z-index: 100;
+    display: none;
+    transition: all 0.3s ease;
+  }
+  .sources-trigger:hover { background: var(--forest-bg); transform: translateY(-2px); }
+
+  /* SOURCES DRAWER */
+  .sources-drawer {
+    position: fixed;
+    top: 0; right: -420px;
+    width: 400px;
+    height: 100vh;
+    background: var(--white);
+    z-index: 201;
+    padding: 2rem;
+    overflow-y: auto;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 30px rgba(0,0,0,0.1);
+  }
+  .sources-drawer.open { right: 0; }
+  .sources-drawer h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 0.25rem;
+  }
+  .sources-drawer .drawer-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+  .source-group {
+    margin-bottom: 1.5rem;
+  }
+  .source-group-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--sand);
+  }
+  .source-entry {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--sand);
+  }
+  .source-entry:last-child { border-bottom: none; }
+  .source-entry a {
+    color: var(--forest);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .source-entry a:hover { text-decoration: underline; }
+  .source-entry .source-detail {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-top: 0.15rem;
+    line-height: 1.4;
+  }
+  .source-entry .source-org {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 10px;
+    background: var(--forest-bg);
+    color: var(--forest);
+    margin-top: 0.3rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<div id="welcome">
+  <h1>Footing</h1>
+  <p class="subtitle">Parental rights for self-employed professionals across Europe — mapped, connected, and personalised to your situation.</p>
+  <button class="start-btn" onclick="showCountrySelector()">Find out what you are entitled to</button>
+</div>
+
+<!-- COUNTRY SELECTOR -->
+<div id="country-selector">
+  <h1>Footing</h1>
+  <p class="subtitle">Choose your country to see what parental rights apply to you as a self-employed professional.</p>
+  <div class="country-cards">
+    <div class="country-card" onclick="selectCountry('NL')">
+      <div class="flag">🇳🇱</div>
+      <div class="name">Netherlands</div>
+      <div class="desc">Rechten voor ZZP-ondernemers</div>
+    </div>
+    <div class="country-card" onclick="selectCountry('IT')">
+      <div class="flag">🇮🇹</div>
+      <div class="name">Italy</div>
+      <div class="desc">Diritti per i lavoratori autonomi</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTIONNAIRE -->
+<div id="questionnaire">
+  <div class="progress-dots" id="progress-dots"></div>
+  <div class="question-container" id="question-container"></div>
+</div>
+
+<!-- GRAPH -->
+<div id="graph-view">
+  <div class="graph-header">
+    <div class="country-flag" id="country-flag"></div>
+    <h2>Your rights, connected</h2>
+    <p class="profile-summary" id="profile-summary"></p>
+  </div>
+  <div class="graph-layout">
+    <div class="graph-canvas" id="graph-canvas">
+      <svg id="graph-svg"></svg>
+    </div>
+    <div class="detail-panel" id="detail-panel">
+      <button class="detail-close" onclick="closeDetail()">✕</button>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+  <div class="summary-row" id="summary-row"></div>
+  <div style="text-align:center">
+    <button class="restart-btn" onclick="restart()">Start over</button>
+  </div>
+</div>
+
+<!-- DOCUMENT DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="toggleDrawer(false)"></div>
+<div class="drawer" id="drawer">
+  <button class="drawer-close" onclick="toggleDrawer(false)">✕</button>
+  <h3>📋 Your documents</h3>
+  <p class="drawer-subtitle">Everything you need to collect — personalised to your situation.</p>
+  <div class="drawer-progress-label" id="drawer-progress-label">0 / 0 collected</div>
+  <div class="drawer-progress"><div class="drawer-progress-bar" id="drawer-progress-bar" style="width:0%"></div></div>
+  <div id="drawer-items"></div>
+  <div class="drawer-footer">
+    <button onclick="window.print()">Save as PDF</button>
+  </div>
+</div>
+<button class="drawer-trigger" id="drawer-trigger" onclick="toggleDrawer(true)">
+  📋 Documents needed <span class="badge" id="drawer-badge">0</span>
+</button>
+
+<!-- SOURCES DRAWER -->
+<div class="drawer-overlay" id="sources-overlay" onclick="toggleSourcesDrawer(false)"></div>
+<div class="sources-drawer" id="sources-drawer">
+  <button class="drawer-close" onclick="toggleSourcesDrawer(false)">✕</button>
+  <h3>📚 Sources</h3>
+  <p class="drawer-subtitle">Official references behind every data point. Verify anything yourself.</p>
+  <div id="sources-items"></div>
+</div>
+<button class="sources-trigger" id="sources-trigger" onclick="toggleSourcesDrawer(true)">
+  📚 Sources
+</button>
+
+<script>
+// ── STATE ──
+const answers = {};
+let currentQ = 0;
+const checkedDocs = new Set();
+
+// ── QUESTIONS (DYNAMIC) ──
+function getQuestions() {
+  const country = answers.country;
+
+  if (country === "NL") {
+    return [
+      {
+        key: "role",
+        label: "What is your situation?",
+        hint: "This determines which rights and schemes apply to you.",
+        options: [
+          { value: "pregnant", title: "I am pregnant (ZZP)", desc: "You are the self-employed birth parent" },
+          { value: "partner", title: "My partner is pregnant (I am ZZP)", desc: "You are the self-employed co-parent" },
+          { value: "adopting", title: "We are adopting (ZZP)", desc: "Adoption or foster care placement" }
+        ]
+      },
+      {
+        key: "hours",
+        label: "How many hours did you work last year?",
+        hint: "The 1,225-hour threshold determines your ZEZ benefit level.",
+        options: [
+          { value: "above", title: "1,225 hours or more", desc: "You will receive the maximum benefit" },
+          { value: "below", title: "Fewer than 1,225 hours", desc: "Benefit is calculated on your profit" },
+          { value: "unsure", title: "I am not sure", desc: "We will show you how to check" }
+        ]
+      },
+      {
+        key: "aov",
+        label: "Do you have disability insurance (AOV)?",
+        hint: "Your AOV policy may have a maternity clause that interacts with ZEZ.",
+        options: [
+          { value: "yes", title: "Yes, I have an AOV", desc: "We will flag the interaction with ZEZ" },
+          { value: "no", title: "No AOV", desc: "Understood — this simplifies things" },
+          { value: "unsure", title: "I am not sure", desc: "Worth checking — we will explain why" }
+        ]
+      }
+    ];
+  } else if (country === "IT") {
+    return [
+      {
+        key: "role",
+        label: "What is your situation?",
+        hint: "This determines which rights and schemes apply to you.",
+        options: [
+          { value: "pregnant", title: "I am pregnant (Partita IVA)", desc: "You are the self-employed birth parent" },
+          { value: "partner", title: "My partner is pregnant (I am Partita IVA)", desc: "You are the self-employed co-parent" },
+          { value: "adopting", title: "We are adopting (Partita IVA)", desc: "Adoption or foster care placement" }
+        ]
+      },
+      {
+        key: "gestione",
+        label: "Are you registered with Gestione Separata INPS?",
+        hint: "This determines your eligibility for maternity and parental leave benefits.",
+        options: [
+          { value: "yes", title: "Yes, I am in Gestione Separata", desc: "You qualify for parental leave benefits" },
+          { value: "no", title: "No, I am in a professional cassa", desc: "Different rules apply" },
+          { value: "unsure", title: "I am not sure", desc: "We will help you understand your status" }
+        ]
+      },
+      {
+        key: "commercialista",
+        label: "Do you have a commercialista or patronato?",
+        hint: "This affects how you submit your applications.",
+        options: [
+          { value: "yes", title: "Yes, I work with one", desc: "They can help with INPS applications" },
+          { value: "no", title: "No, I manage alone", desc: "You will submit directly to INPS MyINPS" },
+          { value: "unsure", title: "I am not sure", desc: "We will explain both options" }
+        ]
+      }
+    ];
+  }
+  return [];
+}
+
+// ── NODES DATA ──
+function getNodes() {
+  const country = answers.country;
+
+  if (country === "NL") {
+    return getNLNodes();
+  } else if (country === "IT") {
+    return getITNodes();
+  }
+  return [];
+}
+
+function getNLNodes() {
+  const r = answers.role, h = answers.hours, a = answers.aov;
+  const isPregnant = r === "pregnant";
+  const isPartner = r === "partner";
+  const isAdopting = r === "adopting";
+  const aboveHours = h === "above";
+
+  const nodes = [];
+
+  // ZEZ
+  if (isPregnant || isAdopting) {
+    nodes.push({
+      id: "zez", x: 60, y: 40,
+      icon: "💶", title: isAdopting ? "Adoption Leave Benefit" : "ZEZ Maternity Benefit",
+      summary: aboveHours ? "€2,245/month (max)" : "Based on your profit",
+      tag: "eligible", tagText: "You qualify",
+      detail: {
+        title: isAdopting ? "Adoption Leave Benefit" : "ZEZ Uitkering",
+        tagClass: "tag-eligible", tagText: "Eligible",
+        body: isAdopting
+          ? `<p>As a self-employed person adopting a child, you have the right to <strong>6 weeks of leave benefit</strong> through UWV.</p><p>The benefit amount follows the same rules as ZEZ: ${aboveHours ? "<strong>€2,245.91 gross/month</strong> (the statutory minimum wage) because you worked 1,225+ hours." : "<strong>calculated based on your profit</strong> from the previous year, because you worked fewer than 1,225 hours."}</p>`
+          : `<p>As a self-employed birth parent, you have the right to <strong>at least 16 weeks of maternity benefit</strong> through UWV under the ZEZ (Zelfstandige en Zwanger) scheme.</p><p>Your benefit: ${aboveHours ? "<strong>€2,245.91 gross/month</strong> — the statutory minimum wage. This is the maximum because you worked 1,225+ hours in the previous calendar year." : "<strong>calculated based on your profit</strong> from the previous year, because you worked fewer than 1,225 hours. Keep your tax return (belastingaangifte) ready."}</p><p>You can start your leave between 6 and 4 weeks before your due date. The remaining weeks follow after birth.</p>`,
+        timeline: isAdopting
+          ? [{ when: "4 weeks before", what: "Apply at UWV via DigiD" }, { when: "Placement day", what: "Leave starts" }]
+          : [{ when: "24 weeks", what: "Notify your clients/opdrachtgevers" }, { when: "6–4 wks before", what: "Earliest start of leave" }, { when: "Apply at UWV", what: "Submit via DigiD with pregnancy declaration" }],
+        sources: [
+          { title: "ZEZ: zwanger en zelfstandig", url: "https://www.rijksoverheid.nl/onderwerpen/zwangerschapsverlof-en-bevallingsverlof/vraag-en-antwoord/hoe-vraag-ik-een-uitkering-aan-als-ik-zwanger-ben-en-zelfstandige", org: "Rijksoverheid" },
+          { title: "Minimumloon per 1 juli 2025", url: "https://www.rijksoverheid.nl/onderwerpen/minimumloon/bedragen-minimumloon", org: "Rijksoverheid" },
+          { title: "ZEZ benefit calculation (1,225 hours)", url: "https://www.rijksoverheid.nl/onderwerpen/zwangerschapsverlof-en-bevallingsverlof/vraag-en-antwoord/hoeveel-uitkering-zwanger-zelfstandige", org: "Rijksoverheid" },
+        ]
+      }
+    });
+  }
+
+  // Partner — no paid leave
+  if (isPartner) {
+    nodes.push({
+      id: "partner-leave", x: 60, y: 40,
+      icon: "🚫", title: "Paid Birth Leave",
+      summary: "Not available for ZZP partners",
+      tag: "unavailable", tagText: "Not available",
+      detail: {
+        title: "Paid Birth Leave — ZZP Partners",
+        tagClass: "tag-unavailable", tagText: "Not available",
+        body: `<p>Unlike employees, <strong>self-employed partners have no right to paid birth leave</strong> in the Netherlands.</p><p>Employees get 1 week fully paid + 5 weeks at 70% through UWV. As a ZZP er, you get neither. You must arrange your own income replacement if you want time off after the birth.</p><p>This is the single biggest gap in Dutch parental rights for the self-employed.</p>`,
+        timeline: [{ when: "Before birth", what: "Build a financial buffer for unpaid time off" }, { when: "Check AOV", what: "Some policies cover paternity — most do not" }],
+        sources: [
+          { title: "Geboorteverlof voor werknemers", url: "https://www.rijksoverheid.nl/onderwerpen/geboorteverlof-en-partnerverlof", org: "Rijksoverheid" },
+          { title: "Geen recht op geboorteverlof als ZZP", url: "https://www.manpower.nl/werkgever/blogs/geboorteverlof", org: "Manpower" },
+        ]
+      }
+    });
+  }
+
+  // Parental leave — always unavailable for ZZP
+  nodes.push({
+    id: "parental-leave", x: 340, y: isPartner ? 40 : 160,
+    icon: "👶", title: "Paid Parental Leave",
+    summary: "ZZP excluded from this scheme",
+    tag: "unavailable", tagText: "Not available",
+    detail: {
+      title: "Paid Parental Leave (Ouderschapsverlof)",
+      tagClass: "tag-unavailable", tagText: "Not available for ZZP",
+      body: `<p>Since August 2022, employees can take <strong>9 weeks of partially paid parental leave</strong> (70% via UWV) in the child is first year. They also get 17 additional weeks unpaid.</p><p><strong>Self-employed parents are completely excluded from this scheme.</strong> There is no ZZP equivalent. You can choose to take time off, but you must fund it entirely yourself.</p><p>This applies whether you are the birth parent or partner.</p>`,
+      timeline: [],
+      sources: [
+        { title: "Betaald ouderschapsverlof", url: "https://www.rijksoverheid.nl/onderwerpen/ouderschapsverlof/betaald-ouderschapsverlof", org: "Rijksoverheid" },
+        { title: "Ouderschapsverlof en ZZP", url: "https://www.zzp-nederland.nl/kennisbank/ouderschapsverlof-als-zzper", org: "ZZP Nederland" },
+      ]
+    }
+  });
+
+  // Hours threshold
+  if (isPregnant || isAdopting) {
+    nodes.push({
+      id: "hours", x: 340, y: 40,
+      icon: "⏱️", title: "1,225-Hour Threshold",
+      summary: aboveHours ? "You meet this — max benefit applies" : h === "unsure" ? "Check your hours — it affects your benefit" : "Below threshold — profit-based benefit",
+      tag: aboveHours ? "eligible" : "warning",
+      tagText: aboveHours ? "Met" : "Check this",
+      detail: {
+        title: "1,225-Hour Requirement",
+        tagClass: aboveHours ? "tag-eligible" : "tag-warning",
+        tagText: aboveHours ? "Requirement met" : "Below / Unsure",
+        body: `<p>To receive the <strong>maximum ZEZ benefit</strong> (€2,245.91/month), you must have worked at least <strong>1,225 hours as a self-employed person</strong> in the calendar year before your benefit starts.</p><p>${aboveHours ? "You indicated you meet this threshold, so you will receive the maximum amount." : "If you are below this, your benefit is calculated based on your <strong>profit (winst)</strong> from the previous year. You will need your tax return as proof."}</p><p>Hours include all professional work — client work, admin, acquisition, travel for work.</p>`,
+        timeline: [{ when: "Now", what: "Track your hours if you have not been" }, { when: "At application", what: "UWV may ask for proof (contracts, invoices)" }],
+        sources: [
+          { title: "ZEZ: hoeveel uitkering", url: "https://www.rijksoverheid.nl/onderwerpen/zwangerschapsverlof-en-bevallingsverlof/vraag-en-antwoord/hoeveel-uitkering-zwanger-zelfstandige", org: "Rijksoverheid" },
+        ]
+      }
+    });
+  }
+
+  // AOV interaction
+  if (a === "yes" || a === "unsure") {
+    nodes.push({
+      id: "aov", x: 60, y: 280,
+      icon: "🛡️", title: "AOV Insurance",
+      summary: a === "yes" ? "Check your maternity clause" : "Worth investigating",
+      tag: "warning", tagText: "Action needed",
+      detail: {
+        title: "AOV × Maternity Interaction",
+        tagClass: "tag-warning", tagText: "Check your policy",
+        body: `<p>Many AOV (arbeidsongeschiktheidsverzekering) policies have a <strong>maternity clause</strong> that interacts with ZEZ. Some policies:</p><p>• <strong>Exclude</strong> pregnancy-related claims entirely<br>• <strong>Supplement</strong> ZEZ up to your insured amount<br>• <strong>Require notification</strong> before your leave starts</p><p>${a === "unsure" ? "Since you are unsure whether you have an AOV, check your insurance documents or contact your financial advisor (boekhouder)." : "Contact your insurer to understand exactly how your AOV interacts with ZEZ benefits. Do this early — some require notification weeks in advance."}</p>`,
+        timeline: [{ when: "Now", what: "Find your AOV policy documents" }, { when: "Immediately", what: "Call your insurer to check maternity clause" }, { when: "Before leave", what: "Notify insurer in writing if required" }],
+        sources: [
+          { title: "AOV en zwangerschap", url: "https://www.zzp-nederland.nl/kennisbank/aov-zwangerschap", org: "ZZP Nederland" },
+        ]
+      }
+    });
+  }
+
+  // Financial buffer
+  nodes.push({
+    id: "buffer", x: 340, y: 280,
+    icon: "💰", title: "Financial Buffer",
+    summary: isPartner ? "Essential — you have no paid leave" : "ZEZ is below most ZZP income",
+    tag: "warning", tagText: "Plan ahead",
+    detail: {
+      title: "Building Your Buffer",
+      tagClass: "tag-warning", tagText: "Plan ahead",
+      body: isPartner
+        ? `<p>As a self-employed partner with <strong>no right to paid leave</strong>, your entire time off after birth is self-funded. A financial buffer is not optional — it is essential.</p><p>Consider: how many weeks do you want to take off? Multiply by your average weekly income. Add 20% for unexpected costs. Start saving now.</p>`
+        : `<p>Even with ZEZ, the maximum benefit is <strong>€2,245.91/month</strong> — the minimum wage. Most freelancers earn significantly more than this.</p><p>The gap between your ZEZ benefit and your normal income needs to be covered by savings. ${!aboveHours ? "Since your benefit may be even lower (profit-based), the gap could be larger." : ""}</p><p>Also budget for: reduced capacity after returning, possible childcare costs, slower client acquisition.</p>`,
+      timeline: [{ when: "6+ months before", what: "Start building dedicated savings" }, { when: "3 months before", what: "Wind down or hand off ongoing projects" }, { when: "During leave", what: "Set up an auto-responder for new enquiries" }],
+      sources: [
+        { title: "Minimumloon bedragen 2025", url: "https://www.rijksoverheid.nl/onderwerpen/minimumloon/bedragen-minimumloon", org: "Rijksoverheid" },
+      ]
+    }
+  });
+
+  // Client communication
+  if (isPregnant || isAdopting) {
+    nodes.push({
+      id: "clients", x: 200, y: 400,
+      icon: "📧", title: "Client Communication",
+      summary: "Notify opdrachtgevers in time",
+      tag: "eligible", tagText: "Plan this",
+      detail: {
+        title: "Notifying Your Clients",
+        tagClass: "tag-eligible", tagText: "Action item",
+        body: `<p>Unlike employees, you have <strong>no legal obligation to tell clients at a specific time</strong>. But practically, you need to manage expectations and protect relationships.</p><p>Best practice: inform ongoing clients at <strong>around 20–24 weeks</strong>. Offer a handover plan or suggest a replacement freelancer. Set clear dates for your last working day and expected return.</p>`,
+        sources: [],
+        timeline: [{ when: "20–24 weeks", what: "Inform key clients with a plan" }, { when: "4 weeks before", what: "Complete all handovers" }, { when: "Last day", what: "Set auto-reply, hand off access" }]
+      }
+    });
+  }
+
+  return nodes;
+}
+
+function getITNodes() {
+  const r = answers.role, g = answers.gestione, c = answers.commercialista;
+  const isPregnant = r === "pregnant";
+  const isPartner = r === "partner";
+  const isAdopting = r === "adopting";
+  const inGestione = g === "yes";
+
+  const nodes = [];
+
+  // Maternity benefit
+  if (isPregnant || isAdopting) {
+    nodes.push({
+      id: "maternity", x: 60, y: 40,
+      icon: "💶", title: "Maternity Benefit (Indennità)",
+      summary: "5 months at 80% of income",
+      tag: "eligible", tagText: "You qualify",
+      detail: {
+        title: "Indennità di maternità",
+        tagClass: "tag-eligible", tagText: "Eligible",
+        body: `<p>As a self-employed birth parent (Partita IVA in Gestione Separata), you have the right to <strong>5 months of maternity benefit</strong> at <strong>80% of your income</strong>.</p><p>Key difference from other countries: <strong>you do NOT have to stop working</strong>. You can continue your activity while receiving the benefit.</p><p>The benefit is calculated as 1/365 of your previous 12 months of income. Your contributions must be up to date with INPS for you to qualify.</p><p>You apply via the INPS MyINPS portal — the process is digital and straightforward for those with SPID or CIE digital identity.</p>`,
+        timeline: [
+          { when: "Now", what: "Ensure your INPS Gestione Separata contributions are up to date" },
+          { when: "Get a certificate", what: "Medical certificate of pregnancy from SSN doctor" },
+          { when: "Before birth", what: "Apply via MyINPS (Congedo Maternità > Gestione Separata)" },
+          { when: "After birth", what: "Submit birth notification to INPS within 30 days" }
+        ],
+        sources: [
+          { title: "INPS: Indennità di maternità per Gestione Separata", url: "https://www.inps.it/it/it/dettaglio-scheda.it.schede-servizio-strumento.schede-servizi.indennit-di-maternit-paternit-per-lavoratrici-e-lavoratori-iscritti-alla-gestione-separata-58666.indennit-di-maternit-paternit-per-lavoratrici-e-lavoratori-iscritti-alla-gestione-separata.html", org: "INPS" },
+          { title: "Maternity leave in Italy: self-employed mothers", url: "https://www.savethechildren.it/blog-notizie/maternita-e-lavoro-diritti-lavoratrici-autonome", org: "Save the Children Italy" },
+        ]
+      }
+    });
+  }
+
+  // Paternity leave (unavailable)
+  if (isPartner) {
+    nodes.push({
+      id: "paternity", x: 60, y: 40,
+      icon: "🚫", title: "Paternity Leave",
+      summary: "10 days for employees only",
+      tag: "unavailable", tagText: "Not available",
+      detail: {
+        title: "Congedo di paternità — Freelancers Not Eligible",
+        tagClass: "tag-unavailable", tagText: "Not available for Partita IVA",
+        body: `<p>Italy offers 10 days of compulsory paternity leave — but <strong>only for employees (dipendenti)</strong>.</p><p>Self-employed partners (Partita IVA) in Gestione Separata receive <strong>nothing</strong>. This is the same gap as the Netherlands.</p><p>However, there is a major difference: unlike in the Netherlands, Italian freelancers CAN access parental leave (congedo parentale) after the child is born, at 30% of income for up to 3 months.</p>`,
+        timeline: [
+          { when: "At birth", what: "You have no paid paternity leave as a freelancer" },
+          { when: "Weeks 1-3", what: "If eligible for parental leave, plan your time off here" }
+        ],
+        sources: [
+          { title: "Parakar: Paternity leave in Italy", url: "https://parakar.eu/knowledge/italy/maternity-paternity-leave-italy", org: "Parakar" },
+        ]
+      }
+    });
+  }
+
+  // Parental leave (AVAILABLE in Italy for Gestione Separata)
+  if (inGestione) {
+    nodes.push({
+      id: "parental", x: 340, y: 40,
+      icon: "👶", title: "Parental Leave (Congedo Parentale)",
+      summary: "Up to 3 months at 30% income",
+      tag: "eligible", tagText: "You qualify",
+      detail: {
+        title: "Congedo Parentale — Italian Freelancers DO Have This",
+        tagClass: "tag-eligible", tagText: "Eligible",
+        body: `<p><strong>Unlike most countries, Italian freelancers in Gestione Separata CAN access parental leave.</strong> This is a key difference.</p><p>Each parent can take <strong>up to 3 months of parental leave</strong> within the child is first year, at <strong>30% of their income</strong>. Additionally, <strong>3 months can be shared</strong> between parents (either parent can use these).</p><p>This allows you to share childcare responsibilities after maternity ends — something unavailable to Dutch ZZP parents.</p><p>Apply via MyINPS. Your contributions must be up to date.</p>`,
+        timeline: [
+          { when: "After maternity ends", what: "Plan your parental leave timing" },
+          { when: "Child age 0-12 months", what: "You can take up to 3 months" },
+          { when: "In MyINPS", what: "Submit parental leave request (Congedo parentale)" }
+        ],
+        sources: [
+          { title: "INPS: Congedo parentale", url: "https://www.inps.it/it/it/dettaglio-scheda.it.schede-servizio-strumento.schede-servizi.indennit-di-maternit-paternit-per-lavoratrici-e-lavoratori-iscritti-alla-gestione-separata-58666.indennit-di-maternit-paternit-per-lavoratrici-e-lavoratori-iscritti-alla-gestione-separata.html", org: "INPS" },
+          { title: "Fiscozen: Maternity leave for Partita IVA", url: "https://www.fiscozen.it/guide/maternita-inps-come-funziona-e-quanto-puoi-ricevere-se-sei-in-partita-iva/", org: "Fiscozen" },
+        ]
+      }
+    });
+  }
+
+  // Gestione Separata status (warning if unsure or not in it)
+  if (g !== "yes") {
+    nodes.push({
+      id: "gestione-status", x: 340, y: 160,
+      icon: "⚠️", title: "Gestione Separata Status",
+      summary: g === "no" ? "Different rules apply" : "Check your registration",
+      tag: "warning", tagText: "Important",
+      detail: {
+        title: "Are you in Gestione Separata INPS?",
+        tagClass: "tag-warning", tagText: "Confirm this",
+        body: g === "no"
+          ? `<p>If you are registered with a <strong>professional cassa</strong> (like CNPADC for psychologists, CNPAIA for architects) instead of Gestione Separata, <strong>different rules apply</strong>.</p><p>Your maternity and parental leave benefits are governed by your specific cassa, not INPS Gestione Separata. Contact your cassa directly to understand your entitlements — they may vary significantly.</p><p>This tool covers Gestione Separata only.</p>`
+          : `<p>You indicated you are not sure whether you are in Gestione Separata INPS. This is important because it determines your eligibility for these benefits.</p><p>Check your INPS registration (via MyINPS with SPID/CIE) or ask your commercialista. If you are self-employed with a Partita IVA and not in a professional cassa, you are likely in Gestione Separata by default.</p>`,
+        timeline: [],
+        sources: [
+          { title: "EU Commission: Social rights in Italy", url: "https://ec.europa.eu/social/main.jsp?catId=1116&langId=en&intPageId=4618", org: "European Commission" },
+        ]
+      }
+    });
+  }
+
+  // Contributions & financial buffer
+  nodes.push({
+    id: "contributions", x: 60, y: 280,
+    icon: "🛡️", title: "Contributions & Buffer",
+    summary: "26.07% rate in 2025, income-based calculation",
+    tag: "warning", tagText: "Plan ahead",
+    detail: {
+      title: "Gestione Separata Contributions & Financial Planning",
+      tagClass: "tag-warning", tagText: "Action needed",
+      body: `<p>Your Gestione Separata contributions are <strong>26.07% of your net income</strong> (2025 rate). These contributions must be <strong>up to date</strong> for you to qualify for maternity benefits.</p><p>The 80% benefit is calculated on 1/365 of your previous 12 months of declared income. For many freelancers in <strong>regime forfettario</strong> (flat-rate), declared income is lower than actual earnings — so your benefit may be lower than expected.</p><p>Example: if you declared €30,000 profit last year, your maternity benefit would be approximately €66/day (30,000 ÷ 365 × 0.80). Plan your buffer accordingly.</p>`,
+      timeline: [
+        { when: "Now", what: "Check your INPS contributions are paid" },
+        { when: "Review", what: "Your last year is tax return to estimate your benefit" },
+        { when: "6+ months before", what: "Start building financial buffer" }
+      ],
+      sources: [
+        { title: "Colline alle Montagne: Maternity leave in Italy", url: "https://collineallemontagne.com/maternity-leave-in-italy/", org: "Colline alle Montagne" },
+      ]
+    }
+  });
+
+  // Commercialista support
+  if (c === "yes" || c === "unsure") {
+    nodes.push({
+      id: "commercialista", x: 340, y: 280,
+      icon: "📞", title: "Commercialista/Patronato",
+      summary: c === "yes" ? "Can help with INPS" : "Worth considering",
+      tag: "eligible", tagText: "Support available",
+      detail: {
+        title: "Getting Professional Help",
+        tagClass: "tag-eligible", tagText: "Action item",
+        body: c === "yes"
+          ? `<p>Your commercialista or patronato can help you submit your maternity and parental leave requests to INPS. They can also:</p><p>• Verify your contributions are up to date<br>• Calculate your estimated benefit<br>• Handle the MyINPS submission if you prefer<br>• Advise on regime forfettario vs. other systems<br>• Plan your tax treatment of the benefit</p><p>This is a common service — definitely ask them about it.</p>`
+          : `<p>You indicated you might not have a commercialista or patronato. While you can submit your INPS applications yourself via MyINPS (with SPID or CIE digital identity), many freelancers find it helpful to have professional support.</p><p>A commercialista or patronato (tax representative) can help verify your eligibility, calculate benefits accurately, and handle the paperwork. It is often worth the cost for peace of mind.</p>`,
+        timeline: c === "yes"
+          ? [{ when: "Soon", what: "Contact your commercialista about maternity benefits" }, { when: "2 weeks before", what: "Provide them with documents" }, { when: "1 week before", what: "Confirm application is submitted" }]
+          : [{ when: "Now", what: "Decide: DIY via MyINPS or hire help?" }, { when: "If hiring", what: "Contact a commercialista or patronato in your area" }],
+        sources: []
+      }
+    });
+  }
+
+  // Client communication
+  if (isPregnant || isAdopting) {
+    nodes.push({
+      id: "clients-it", x: 200, y: 400,
+      icon: "📧", title: "Client Communication",
+      summary: "Manage expectations early",
+      tag: "eligible", tagText: "Plan this",
+      detail: {
+        title: "Communicating with Your Clients",
+        tagClass: "tag-eligible", tagText: "Action item",
+        body: `<p>Like in other countries, you have <strong>no legal obligation to notify clients at a specific time</strong>. But practically, you should inform ongoing clients well in advance.</p><p>Best practice: tell key clients around <strong>20–24 weeks</strong> of pregnancy. Offer a handover plan or suggest a replacement freelancer. Since you can continue working while receiving maternity benefit, you could gradually reduce capacity instead of stopping entirely.</p>`,
+        sources: [],
+        timeline: [{ when: "20–24 weeks", what: "Inform key clients with a plan" }, { when: "4 weeks before", what: "Complete major handovers" }, { when: "During leave", what: "Set auto-responder, manage expectations" }]
+      }
+    });
+  }
+
+  return nodes;
+}
+
+// ── CONNECTIONS ──
+function getConnections() {
+  const country = answers.country;
+
+  if (country === "NL") {
+    return getNLConnections();
+  } else if (country === "IT") {
+    return getITConnections();
+  }
+  return [];
+}
+
+function getNLConnections() {
+  const r = answers.role;
+  const isPregnant = r === "pregnant";
+  const isPartner = r === "partner";
+  const isAdopting = r === "adopting";
+  const a = answers.aov;
+
+  const conns = [];
+  if (isPregnant || isAdopting) {
+    conns.push({ from: "zez", to: "hours", color: "var(--forest)", label: "determines amount" });
+    conns.push({ from: "zez", to: "parental-leave", color: "var(--slate-light)", label: "", dash: true });
+    conns.push({ from: "zez", to: "buffer", color: "var(--amber)", label: "gap to cover" });
+    if (a === "yes" || a === "unsure") {
+      conns.push({ from: "zez", to: "aov", color: "var(--amber)", label: "interacts" });
+    }
+    conns.push({ from: "zez", to: "clients", color: "var(--forest)", label: "" });
+  }
+  if (isPartner) {
+    conns.push({ from: "partner-leave", to: "parental-leave", color: "var(--slate-light)", label: "", dash: true });
+    conns.push({ from: "partner-leave", to: "buffer", color: "var(--amber)", label: "must self-fund" });
+    if (a === "yes" || a === "unsure") {
+      conns.push({ from: "partner-leave", to: "aov", color: "var(--amber)", label: "check coverage" });
+    }
+  }
+  return conns;
+}
+
+function getITConnections() {
+  const r = answers.role, g = answers.gestione;
+  const isPregnant = r === "pregnant";
+  const isPartner = r === "partner";
+  const isAdopting = r === "adopting";
+  const inGestione = g === "yes";
+
+  const conns = [];
+  if (isPregnant || isAdopting) {
+    conns.push({ from: "maternity", to: "contributions", color: "var(--amber)", label: "depends on" });
+    if (inGestione) {
+      conns.push({ from: "maternity", to: "parental", color: "var(--forest)", label: "followed by" });
+      conns.push({ from: "parental", to: "contributions", color: "var(--slate-light)", label: "" });
+    }
+    conns.push({ from: "maternity", to: "clients-it", color: "var(--forest)", label: "" });
+  }
+  if (isPartner) {
+    conns.push({ from: "paternity", to: "parental", color: "var(--forest)", label: "can use instead" });
+    if (!inGestione) {
+      conns.push({ from: "paternity", to: "gestione-status", color: "var(--amber)", label: "check your status" });
+    }
+  }
+  return conns;
+}
+
+// ── DOCUMENTS DATA ──
+function getDocuments() {
+  const country = answers.country;
+
+  if (country === "NL") {
+    return getNLDocuments();
+  } else if (country === "IT") {
+    return getITDocuments();
+  }
+  return [];
+}
+
+function getNLDocuments() {
+  const r = answers.role, h = answers.hours, a = answers.aov;
+  const isPregnant = r === "pregnant";
+  const isPartner = r === "partner";
+  const isAdopting = r === "adopting";
+  const aboveHours = h === "above";
+
+  const docs = [];
+
+  if (isPregnant) {
+    docs.push({ id: "d1", title: "Zwangerschapsverklaring", desc: "Pregnancy declaration from your GP or midwife stating your due date.", tag: "required" });
+  }
+  if (isAdopting) {
+    docs.push({ id: "d-adopt", title: "Official adoption documents", desc: "Formal adoption or foster care placement documentation.", tag: "required" });
+    docs.push({ id: "d-adopt-form", title: "UWV adoption leave form", desc: "Available on the UWV website under adoptie/pleegzorgverlof.", tag: "required" });
+  }
+
+  docs.push({ id: "d2", title: "DigiD", desc: "Required to submit your application via the UWV portal.", tag: "required" });
+  docs.push({ id: "d3", title: "BSN number", desc: "Your citizen service number — on your ID or any government letter.", tag: "required" });
+
+  if (!aboveHours && (isPregnant || isAdopting)) {
+    docs.push({ id: "d4", title: "Belastingaangifte (tax return)", desc: "From the previous year — proves your profit for the benefit calculation.", tag: "required" });
+    docs.push({ id: "d5", title: "Jaarrekening (annual accounts)", desc: "If available — supports your profit-based benefit claim.", tag: "conditional" });
+  }
+
+  if (isPregnant || isAdopting) {
+    docs.push({ id: "d6", title: "Contracts / opdrachtovereenkomsten", desc: "Keep for up to 2 years. UWV may request these as proof of self-employment.", tag: "conditional" });
+  }
+
+  if (a === "yes") {
+    docs.push({ id: "d7", title: "AOV policy documents", desc: "Find your full policy — check the maternity/pregnancy clause specifically.", tag: "action" });
+    docs.push({ id: "d8", title: "Written notification to AOV insurer", desc: "Many policies require you to notify them before leave starts.", tag: "action" });
+    docs.push({ id: "d9", title: "Confirmation from insurer", desc: "Get written confirmation of how your AOV interacts with ZEZ.", tag: "action" });
+  }
+  if (a === "unsure") {
+    docs.push({ id: "d7b", title: "Check if you have an AOV", desc: "Ask your boekhouder (accountant) or check your insurance documents.", tag: "action" });
+  }
+
+  if (isPartner) {
+    docs.push({ id: "dp1", title: "Savings/buffer plan", desc: "Calculate weeks off × weekly income + 20%. You have no paid leave.", tag: "action" });
+  }
+
+  return docs;
+}
+
+function getITDocuments() {
+  const r = answers.role, g = answers.gestione, c = answers.commercialista;
+  const isPregnant = r === "pregnant";
+  const isPartner = r === "partner";
+  const isAdopting = r === "adopting";
+  const inGestione = g === "yes";
+
+  const docs = [];
+
+  if (isPregnant) {
+    docs.push({ id: "it-d1", title: "Certificato medico di gravidanza", desc: "Medical certificate of pregnancy from your SSN doctor — required to apply for maternity benefit.", tag: "required" });
+  }
+
+  docs.push({ id: "it-d2", title: "SPID or CIE digital identity", desc: "Required to access the INPS MyINPS portal for submitting your application online.", tag: "required" });
+  docs.push({ id: "it-d3", title: "Codice fiscale", desc: "Your Italian tax code — on your ID or tax documents.", tag: "required" });
+  docs.push({ id: "it-d4", title: "Previous year is tax declaration (Dichiarazione dei redditi)", desc: "Used to calculate your maternity benefit amount (1/365 of declared income × 80%).", tag: "required" });
+
+  if (g === "no") {
+    docs.push({ id: "it-d5", title: "Professional cassa registration proof", desc: "If you are in a professional cassa instead of Gestione Separata, provide proof of registration.", tag: "conditional" });
+  }
+
+  if (c === "yes" || c === "unsure") {
+    docs.push({ id: "it-d6", title: "Contact your commercialista", desc: "Notify them about your maternity leave so they can help coordinate the INPS application.", tag: "action" });
+  }
+
+  if (isPregnant || isAdopting) {
+    docs.push({ id: "it-d7", title: "Submit application via MyINPS", desc: "Navigate to Congedo Maternità > Gestione Separata and submit with your documents. Do this before birth.", tag: "action" });
+    docs.push({ id: "it-d8", title: "Notify INPS of child birth within 30 days", desc: "After delivery, inform INPS of the actual birth date via MyINPS or your commercialista.", tag: "action" });
+  }
+
+  return docs;
+}
+
+// ── NAVIGATION ──
+function showCountrySelector() {
+  document.getElementById("welcome").style.display = "none";
+  document.getElementById("country-selector").style.display = "flex";
+}
+
+function selectCountry(country) {
+  answers.country = country;
+  document.getElementById("country-selector").style.display = "none";
+  document.getElementById("questionnaire").style.display = "flex";
+  currentQ = 0;
+  renderQuestion();
+}
+
+function startQuestionnaire() {
+  showCountrySelector();
+}
+
+function renderQuestion() {
+  const questions = getQuestions();
+  const q = questions[currentQ];
+  const dotsHtml = questions.map((_, i) =>
+    `<div class="dot ${i < currentQ ? "done" : ""} ${i === currentQ ? "active" : ""}"></div>`
+  ).join("");
+  document.getElementById("progress-dots").innerHTML = dotsHtml;
+
+  const optionsHtml = q.options.map(o =>
+    `<button class="option-btn" onclick="selectOption('${q.key}','${o.value}')">
+      <span class="option-title">${o.title}</span>
+      <span class="option-desc">${o.desc}</span>
+    </button>`
+  ).join("");
+
+  document.getElementById("question-container").innerHTML = `
+    <p class="question-label">${q.label}</p>
+    <p class="question-hint">${q.hint}</p>
+    <div class="options">${optionsHtml}</div>
+  `;
+}
+
+function selectOption(key, value) {
+  answers[key] = value;
+  currentQ++;
+  const questions = getQuestions();
+  if (currentQ < questions.length) {
+    renderQuestion();
+  } else {
+    document.getElementById("questionnaire").style.display = "none";
+    buildGraph();
+  }
+}
+
+// ── GRAPH ──
+function buildGraph() {
+  const view = document.getElementById("graph-view");
+  view.style.display = "block";
+
+  // Country flag in header
+  const countryFlag = answers.country === "NL" ? "🇳🇱" : "🇮🇹";
+  document.getElementById("country-flag").textContent = countryFlag;
+
+  // Profile summary
+  let roleLabel, hoursLabel, gestineLabel, commercialistaLabel;
+
+  if (answers.country === "NL") {
+    roleLabel = { pregnant: "Self-employed birth parent", partner: "Self-employed partner", adopting: "Adopting (self-employed)" };
+    hoursLabel = { above: "1,225+ hours", below: "Under 1,225 hours", unsure: "Hours unsure" };
+    document.getElementById("profile-summary").textContent =
+      `${roleLabel[answers.role]} · ${hoursLabel[answers.hours]} · AOV: ${answers.aov}`;
+  } else if (answers.country === "IT") {
+    roleLabel = { pregnant: "Self-employed birth parent", partner: "Self-employed partner", adopting: "Adopting (self-employed)" };
+    gestineLabel = { yes: "Gestione Separata", no: "Professional cassa", unsure: "Status unsure" };
+    document.getElementById("profile-summary").textContent =
+      `${roleLabel[answers.role]} · ${gestineLabel[answers.gestione]}`;
+  }
+
+  const nodes = getNodes();
+  const connections = getConnections();
+  const canvas = document.getElementById("graph-canvas");
+  const svg = document.getElementById("graph-svg");
+
+  // Clear previous
+  canvas.querySelectorAll(".node").forEach(n => n.remove());
+  svg.innerHTML = "";
+
+  // Create node elements
+  nodes.forEach((node, i) => {
+    const el = document.createElement("div");
+    el.className = `node ${node.tag === "unavailable" ? "inactive" : ""} ${node.tag === "warning" ? "warning" : ""} ${node.tag === "eligible" ? "active" : ""}`;
+    el.id = `node-${node.id}`;
+    el.style.left = node.x + "px";
+    el.style.top = node.y + "px";
+    el.innerHTML = `
+      <div class="node-icon">${node.icon}</div>
+      <div class="node-title">${node.title}</div>
+      <div class="node-summary">${node.summary}</div>
+      <span class="node-tag ${node.tag === "eligible" ? "tag-eligible" : ""} ${node.tag === "warning" ? "tag-warning" : ""} ${node.tag === "unavailable" ? "tag-unavailable" : ""}">${node.tagText}</span>
+    `;
+    el.onclick = () => showDetail(node);
+    canvas.appendChild(el);
+
+    setTimeout(() => el.classList.add("visible"), 150 * i);
+  });
+
+  // Draw connections after nodes are positioned
+  setTimeout(() => {
+    connections.forEach((conn, i) => {
+      const fromEl = document.getElementById(`node-${conn.from}`);
+      const toEl = document.getElementById(`node-${conn.to}`);
+      if (!fromEl || !toEl) return;
+
+      const fx = fromEl.offsetLeft + fromEl.offsetWidth;
+      const fy = fromEl.offsetTop + fromEl.offsetHeight / 2;
+      const tx = toEl.offsetLeft;
+      const ty = toEl.offsetTop + toEl.offsetHeight / 2;
+
+      const mx = (fx + tx) / 2;
+
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", `M${fx},${fy} C${mx},${fy} ${mx},${ty} ${tx},${ty}`);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", conn.color || "var(--slate-light)");
+      path.setAttribute("stroke-width", "2");
+      if (conn.dash) path.setAttribute("stroke-dasharray", "6,4");
+
+      const len = 300;
+      path.setAttribute("stroke-dasharray", conn.dash ? "6,4" : `${len}`);
+      if (!conn.dash) {
+        path.setAttribute("stroke-dashoffset", `${len}`);
+        path.style.transition = `stroke-dashoffset 0.8s ease ${0.3 + i * 0.15}s`;
+        setTimeout(() => path.setAttribute("stroke-dashoffset", "0"), 50);
+      }
+
+      svg.appendChild(path);
+    });
+  }, 200);
+
+  // Summary row
+  const eligible = nodes.filter(n => n.tag === "eligible").length;
+  const warnings = nodes.filter(n => n.tag === "warning").length;
+  const unavailable = nodes.filter(n => n.tag === "unavailable").length;
+  document.getElementById("summary-row").innerHTML = `
+    <div class="summary-item"><div class="summary-value">${eligible}</div><div class="summary-label">Rights you have</div></div>
+    <div class="summary-item"><div class="summary-value">${warnings}</div><div class="summary-label">Need attention</div></div>
+    <div class="summary-item"><div class="summary-value">${unavailable}</div><div class="summary-label">Not available</div></div>
+  `;
+
+  // Show drawer triggers after a delay
+  setTimeout(() => {
+    document.getElementById("drawer-trigger").style.display = "block";
+    document.getElementById("sources-trigger").style.display = "block";
+    const docs = getDocuments();
+    document.getElementById("drawer-badge").textContent = docs.length;
+    renderDrawer();
+    renderSourcesDrawer();
+  }, 800);
+}
+
+function showDetail(node) {
+  const panel = document.getElementById("detail-panel");
+  const d = node.detail;
+  let timelineHtml = "";
+  if (d.timeline && d.timeline.length > 0) {
+    timelineHtml = `<div class="detail-section"><h4>Timeline</h4>${d.timeline.map(t =>
+      `<div class="timeline-item"><span class="timeline-when">${t.when}</span><span class="timeline-what">${t.what}</span></div>`
+    ).join("")}</div>`;
+  }
+
+  let sourcesHtml = "";
+  if (d.sources && d.sources.length > 0) {
+    sourcesHtml = `<div class="detail-sources"><h4>Sources</h4>${d.sources.map(s =>
+      `<div class="source-link"><span class="source-icon">🔗</span><div><a href="${s.url}" target="_blank" rel="noopener">${s.title}</a><br><span class="source-label">${s.org}</span></div></div>`
+    ).join("")}</div>`;
+  }
+
+  document.getElementById("detail-content").innerHTML = `
+    <h3>${d.title}</h3>
+    <span class="detail-tag ${d.tagClass}">${d.tagText}</span>
+    <div class="detail-body">${d.body}</div>
+    ${timelineHtml}
+    ${sourcesHtml}
+  `;
+  panel.classList.add("open");
+}
+
+function closeDetail() {
+  document.getElementById("detail-panel").classList.remove("open");
+}
+
+// ── DRAWER ──
+function toggleDrawer(open) {
+  document.getElementById("drawer").classList.toggle("open", open);
+  document.getElementById("drawer-overlay").classList.toggle("open", open);
+}
+
+function renderDrawer() {
+  const docs = getDocuments();
+  const container = document.getElementById("drawer-items");
+  container.innerHTML = docs.map(doc => {
+    const tagClass = doc.tag === "required" ? "doc-tag-required" : doc.tag === "conditional" ? "doc-tag-conditional" : "doc-tag-action";
+    const tagLabel = doc.tag === "required" ? "Required" : doc.tag === "conditional" ? "If applicable" : "Action";
+    const checked = checkedDocs.has(doc.id);
+    return `<div class="doc-item">
+      <input type="checkbox" ${checked ? "checked" : ""} onchange="toggleDoc('${doc.id}', this.checked)">
+      <div class="doc-item-content">
+        <div class="doc-item-title ${checked ? "checked" : ""}">${doc.title}</div>
+        <div class="doc-item-desc">${doc.desc}</div>
+        <span class="doc-tag ${tagClass}">${tagLabel}</span>
+      </div>
+    </div>`;
+  }).join("");
+  updateDrawerProgress();
+}
+
+function toggleDoc(id, checked) {
+  if (checked) checkedDocs.add(id); else checkedDocs.delete(id);
+  renderDrawer();
+}
+
+function updateDrawerProgress() {
+  const docs = getDocuments();
+  const total = docs.length;
+  const done = checkedDocs.size;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById("drawer-progress-bar").style.width = pct + "%";
+  document.getElementById("drawer-progress-label").textContent = `${done} / ${total} collected`;
+  document.getElementById("drawer-badge").textContent = total - done;
+}
+
+// ── SOURCES DRAWER ──
+function toggleSourcesDrawer(open) {
+  document.getElementById("sources-drawer").classList.toggle("open", open);
+  document.getElementById("sources-overlay").classList.toggle("open", open);
+}
+
+function renderSourcesDrawer() {
+  const nodes = getNodes();
+  const container = document.getElementById("sources-items");
+  let html = "";
+  nodes.forEach(node => {
+    const s = node.detail.sources;
+    if (s && s.length > 0) {
+      html += `<div class="source-group">`;
+      html += `<div class="source-group-title">${node.icon} ${node.title}</div>`;
+      s.forEach(src => {
+        html += `<div class="source-entry">
+          <a href="${src.url}" target="_blank" rel="noopener">${src.title}</a>
+          <div class="source-detail"><span class="source-org">${src.org}</span></div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+  });
+  if (!html) {
+    html = "<p style=\"color:var(--text-light);font-size:0.9rem;\">No sources for your current profile.</p>";
+  }
+  container.innerHTML = html;
+}
+
+function restart() {
+  document.getElementById("graph-view").style.display = "none";
+  document.getElementById("drawer-trigger").style.display = "none";
+  document.getElementById("sources-trigger").style.display = "none";
+  toggleDrawer(false);
+  toggleSourcesDrawer(false);
+  checkedDocs.clear();
+  Object.keys(answers).forEach(k => delete answers[k]);
+  currentQ = 0;
+  document.getElementById("welcome").style.display = "flex";
+}
+</script>
+</body>
+</html>
